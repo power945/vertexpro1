@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>VertexPro — Business & Consulting</title>
+<meta name="description" content="VertexPro: Strategy, Technology & Growth. Professional consulting, product demos, case studies and contact — all in one page." />
+<style>
+  /* ===== Reset & Base ===== */
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    -webkit-font-smoothing:antialiased;line-height:1.5;color:#0f1724;
+    background:linear-gradient(180deg,#f6f8fb 0%,#ffffff 100%);
+    transition:background .25s,color .25s;
+  }
+  body.dark{
+    background:#071025;color:#e6eef6;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  /* ===== Layout ===== */
+  header{
+    position:fixed;left:0;right:0;top:0;height:72px;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 20px;background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);
+    box-shadow:0 6px 18px rgba(20,30,40,0.06);z-index:1200;transition:background .25s,box-shadow .25s;
+  }
+  body.dark header{background:rgba(3,10,20,0.6)}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{
+    width:44px;height:44px;border-radius:8px;
+    background:linear-gradient(135deg,#0ea5a3,#0d6efd);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;box-shadow:0 6px 18px rgba(13,110,253,0.18)
+  }
+  nav{display:flex;gap:14px;align-items:center}
+  nav a{padding:8px 10px;border-radius:8px;font-weight:600;color:#0d6efd}
+  nav a:hover{background:rgba(13,110,253,0.08)}
+  .controls{display:flex;gap:10px;align-items:center}
+
+  main{max-width:1200px;margin:110px auto 60px;padding:0 20px}
+
+  /* ===== Hero ===== */
+  .hero{
+    border-radius:14px;overflow:hidden;position:relative;display:flex;align-items:center;padding:44px;
+    min-height:420px;background:
+      linear-gradient(180deg,rgba(2,6,23,0.28),rgba(2,6,23,0.28)),
+      url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    color:white;
+    box-shadow:0 10px 30px rgba(2,6,23,0.12);
+  }
+  .hero .left{flex:1;max-width:720px}
+  .hero h1{font-size:36px;line-height:1.03;margin:0 0 12px;font-weight:800;letter-spacing:-0.02em}
+  .hero p{margin:0 0 18px;font-size:18px;opacity:.95}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{padding:12px 18px;border-radius:10px;font-weight:700;cursor:pointer;border:0}
+  .btn-primary{background:#ffc107;color:#081222}
+  .btn-ghost{background:transparent;border:2px solid rgba(255,255,255,0.18);color:#fff}
+  .hero .kpis{display:flex;gap:18px;margin-top:22px}
+  .kpi{background:rgba(255,255,255,0.06);padding:10px 14px;border-radius:10px;font-weight:700}
+
+  /* ===== Grid sections ===== */
+  section{margin-top:48px}
+  h2.section-title{font-size:22px;color:#0d6efd;margin:0 0 18px;display:inline-block;border-bottom:3px solid #0d6efd;padding-bottom:6px}
+  body.dark h2.section-title{color:#90caf9;border-color:#90caf9}
+
+  /* Services */
+  .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .service{background:#fff;border-radius:12px;padding:18px;box-shadow:0 6px 18px rgba(15,23,36,0.06)}
+  body.dark .service{background:#081023;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+  .service .icon{font-size:26px;background:linear-gradient(135deg,#0ea5a3,#0d6efd);width:48px;height:48px;border-radius:10px;color:white;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+
+  /* Case Studies carousel */
+  .carousel{position:relative}
+  .carousel-list{display:flex;gap:14px;overflow:hidden;padding-bottom:8px}
+  .case{min-width:320px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 6px 18px rgba(15,23,36,0.06)}
+  body.dark .case{background:#06121a}
+  .carousel-controls{position:absolute;right:10px;top:10px;display:flex;gap:8px}
+
+  /* Pricing */
+  .pricing{display:flex;gap:16px;flex-wrap:wrap}
+  .price-card{flex:1;min-width:220px;background:#fff;border-radius:12px;padding:18px;box-shadow:0 6px 18px rgba(15,23,36,0.06)}
+  body.dark .price-card{background:#081822}
+
+  /* Products grid */
+  .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+  .product{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 6px 20px rgba(15,23,36,0.06)}
+  .product .img{height:160px;background:#e9eef8;display:flex;align-items:center;justify-content:center}
+  .product .info{padding:12px}
+  body.dark .product{background:#071021}
+
+  /* Testimonials */
+  .testimonials{position:relative;background:#fff;padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,36,0.06);overflow:hidden}
+  body.dark .testimonials{background:#061421}
+  .testimonial{display:none;text-align:center}
+  .testimonial.active{display:block}
+  .t-author{margin-top:12px;font-weight:700;color:#0d6efd}
+
+  /* Map */
+  #map{width:100%;height:360px;border-radius:12px;border:0;display:block}
+
+  /* Contact & Forms */
+  form{background:#fff;padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,36,0.06), inset 0 0 0 1px rgba(13,110,253,0.02)}
+  body.dark form{background:#081421}
+  label{display:block;font-weight:700;margin-bottom:6px;color:#0d6efd}
+  input,textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid #d1d9e6;margin-bottom:12px;font-size:15px}
+  body.dark input,body.dark textarea{background:#0c1720;color:#dfeffb;border-color:#163243}
+  .muted{color:#6b7280;font-size:14px}
+
+  /* Footer */
+  footer{margin-top:32px;padding:26px;text-align:center;color:#475569}
+
+  /* Utilities */
+  .row{display:flex;gap:16px;flex-wrap:wrap}
+  .center{text-align:center}
+  .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(13,110,253,0.08);color:#0d6efd;font-weight:700}
+
+  /* Admin modal */
+  .modal{position:fixed;inset:0;background:rgba(2,6,23,0.5);display:none;align-items:center;justify-content:center;padding:20px;z-index:1400}
+  .modal.open{display:flex}
+  .modal-box{background:#fff;padding:18px;border-radius:12px;max-width:900px;width:100%;max-height:80vh;overflow:auto}
+  body.dark .modal-box{background:#071225;color:#e6eef6}
+
+  /* Responsive tweaks */
+  @media (max-width:880px){
+    .hero{padding:26px;min-height:300px}
+    header{padding:0 12px}
+    nav a{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader" aria-hidden="false">
+  <div class="brand" aria-hidden="false">
+    <div class="logo" aria-hidden="true">VP</div>
+    <div>
+      <div style="font-weight:800">VertexPro</div>
+      <div style="font-size:12px;color:#64748b">Strategy • Technology • Growth</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <nav aria-label="Main navigation">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#case-studies">Case Studies</a>
+      <a href="#products">Products</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button id="darkBtn" title="Toggle dark mode" class="btn" style="border:1px solid #e6eefc;padding:8px 10px;border-radius:8px">Dark</button>
+    <button id="adminOpen" title="Open admin panel" class="btn" style="background:#0d6efd;color:#fff">Admin</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" role="region" aria-label="Main hero">
+    <div class="left">
+      <h1>Build strategy, launch products, scale revenue.</h1>
+      <p>VertexPro combines business strategy, engineering, and data to deliver measurable growth — from roadmap to execution.</p>
+      <div class="cta-row">
+        <button class="btn btn-primary" onclick="scrollToSection('contact')">Get a Consultation</button>
+        <button class="btn btn-ghost" onclick="scrollToSection('case-studies')">See Case Studies</button>
+      </div>
+
+      <div class="kpis" aria-hidden="false" style="margin-top:20px">
+        <div class="kpi">+15 yrs experience</div>
+        <div class="kpi">200+ projects</div>
+        <div class="kpi">Avg +32% growth</div>
+      </div>
+    </div>
+    <div style="flex:0 0 340px;margin-left:24px">
+      <div style="background:rgba(255,255,255,0.06);padding:18px;border-radius:12px">
+        <div style="font-weight:800;font-size:18px;margin-bottom:8px">Quick Demo</div>
+        <div style="font-size:14px;color:#e6eefc">Try a product sample or download our one-page strategy template.</div>
+        <div style="margin-top:12px" class="row">
+          <button class="btn" onclick="downloadSample()">Download PDF</button>
+          <button class="btn" style="background:#0ea5a3;color:#fff" onclick="simulateSignup()">Try Demo</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" aria-label="About">
+    <h2 class="section-title">About VertexPro</h2>
+    <p style="max-width:900px">We deliver end-to-end solutions — strategy, product design, engineering, and analytics — to help companies find product-market fit and scale reliably. Our team combines consulting rigor with hands-on execution.</p>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" aria-label="Services">
+    <h2 class="section-title">Services</h2>
+    <div class="services" id="servicesList">
+      <!-- JS populated -->
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section id="case-studies" aria-label="Case Studies">
+    <h2 class="section-title">Case Studies</h2>
+    <div class="carousel" style="margin-top:8px">
+      <div class="carousel-controls">
+        <button class="btn" id="casePrev">&larr;</button>
+        <button class="btn" id="caseNext">&rarr;</button>
+      </div>
+      <div class="carousel-list" id="caseList" tabindex="0" aria-roledescription="carousel">
+        <!-- JS populated -->
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" aria-label="Pricing">
+    <h2 class="section-title">Pricing (Starter & Strategic)</h2>
+    <div class="pricing" id="pricingGrid">
+      <!-- JS populated -->
+    </div>
+    <p class="muted">Pricing shown for guidance — final proposals are custom and scoped to your needs.</p>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" aria-label="Products">
+    <h2 class="section-title">Featured Products & Tools</h2>
+    <div class="products-grid" id="productsGrid">
+      <!-- JS populated -->
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" aria-label="Testimonials">
+    <h2 class="section-title">What Clients Say</h2>
+    <div class="testimonials" id="testimonialsBox">
+      <div class="testimonial active" id="t0">
+        <div>"VertexPro took our product from idea to live in 12 weeks — revenue doubled in six months."</div>
+        <div class="t-author">— Miriam R., CEO</div>
+      </div>
+      <div class="testimonial" id="t1">
+        <div>"Their data-first approach unlocked customer segments we didn't know existed."</div>
+        <div class="t-author">— Kofi A., Growth Lead</div>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
+        <button class="btn" onclick="prevTest()">Prev</button>
+        <button class="btn" onclick="nextTest()">Next</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP -->
+  <section id="location" aria-label="Location">
+    <h2 class="section-title">Our Location</h2>
+    <iframe id="map" title="VertexPro location" loading="lazy"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.283328059281!2d-122.41941558468332!3d37.77492927975814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085815495e6e4db%3A0x2a439e9f131569a1!2sSan+Francisco%2C+CA!5e0!3m2!1sen!2sus!4v1691672400000!5m2!1sen!2sus">
+    </iframe>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" aria-label="Contact">
+    <h2 class="section-title">Contact & Request a Proposal</h2>
+    <form id="contactForm" aria-label="Contact form">
+      <label for="cname">Full name</label>
+      <input id="cname" name="name" placeholder="Jane Doe" required />
+
+      <label for="cemail">Email</label>
+      <input id="cemail" name="email" type="email" placeholder="you@company.com" required />
+
+      <label for="ctitle">Project title</label>
+      <input id="ctitle" name="title" placeholder="e.g. Mobile app redesign" />
+
+      <label for="cmessage">Message</label>
+      <textarea id="cmessage" name="message" rows="5" placeholder="Briefly describe your needs" required></textarea>
+
+      <div style="display:flex;gap:12px;align-items:center">
+        <button type="submit" class="btn btn-primary">Send Request</button>
+        <button type="button" class="btn" onclick="saveDraft()">Save Draft</button>
+        <div id="contactNote" class="muted" aria-live="polite"></div>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <div style="max-width:1000px;margin:0 auto;padding:8px 20px;color:#475569">
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>© <strong>VertexPro</strong> 2025 • <a href="mailto:hello@vertexpro.example">hello@vertexpro.example</a></div>
+      <div>Follow: <a href="#" aria-label="Twitter">Twitter</a> • <a href="#" aria-label="LinkedIn">LinkedIn</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- Admin Modal (simulated backend viewer) -->
+<div id="adminModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal-box" role="document" aria-labelledby="adminTitle">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <h3 id="adminTitle">Admin Panel — Stored Submissions</h3>
+      <div><button class="btn" onclick="closeAdmin()">Close</button></div>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      <button class="btn" onclick="exportSubmissions()">Export JSON</button>
+      <button class="btn" onclick="clearSubmissions()">Clear All</button>
+      <div style="margin-left:auto" class="muted">Stored in localStorage (simulated backend)</div>
+    </div>
+
+    <div id="adminContent" style="font-size:14px"></div>
+  </div>
+</div>
+
+<script>
+/* ======================
+   Inline data (edit here)
+   ====================== */
+const SERVICES = [
+  {icon:'💡', title:'Strategy & Roadmap', desc:'Product roadmap, market entry, business case and OKR setup.'},
+  {icon:'🛠️', title:'Product Engineering', desc:'End-to-end product development: design, build, deploy.'},
+  {icon:'📈', title:'Growth & Analytics', desc:'Funnel optimization, experimentation and data infrastructure.'},
+  {icon:'☁️', title:'Cloud & Ops', desc:'Cloud architecture, cost optimization and reliability.'}
+];
+
+const CASES = [
+  {title:'SaaS Launch — Fintech', summary:'Validated new pricing and reduced churn by 22% in 3 months.', img:''},
+  {title:'Marketplace Scale', summary:'Improved onboarding flow; GPV up 3x in 6 months.', img:''},
+  {title:'Retail Digitalization', summary:'Migration to headless commerce with 40% faster load times.', img:''}
+];
+
+const PRICING = [
+  {name:'Starter', price:'From $8k', bullets:['Discovery workshop','2 week sprint','Simple MVP']},
+  {name:'Growth', price:'From $25k', bullets:['Full product build','Analytics setup','6 month support']},
+  {name:'Enterprise', price:'Custom', bullets:['Dedicated team','SLA & compliance','Long-term partnership']}
+];
+
+const PRODUCTS = [
+  {title:'Analytics Starter Kit', desc:'Self-serve dashboard & ETL pipeline template.', img:'https://images.unsplash.com/photo-1556155092-490a1ba16284?auto=format&fit=crop&w=800&q=60'},
+  {title:'Design System Boilerplate', desc:'Figma + component library starter pack.', img:'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=60'},
+  {title:'Ops Runbook', desc:'Repeatable runbook for system incidents and onboarding.', img:'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=60'}
+];
+
+const TESTIMONIALS = [
+  {quote:'VertexPro helped us scope the right MVP and saved months of work.','author':'A. Nwosu, Founder'},
+  {quote:'The team’s execution focus is unmatched — fast, clear and accountable.','author':'L. Brown, CTO'}
+];
+
+/* ======================
+   Render dynamic sections
+   ====================== */
+function el(tag,attrs={},inner=''){const e=document.createElement(tag);for(let k in attrs)if(k.startsWith('on'))e.addEventListener(k.slice(2),attrs[k]);else e.setAttribute(k,attrs[k]);if(inner) e.innerHTML=inner;return e}
+
+function renderServices(){
+  const container=document.getElementById('servicesList');
+  SERVICES.forEach(s=>{
+    const card=el('div',{'class':'service'});
+    card.innerHTML = `<div class="icon">${s.icon}</div><div style="font-weight:800;margin-bottom:6px">${s.title}</div><div class="muted">${s.desc}</div>`;
+    container.appendChild(card);
+  });
+}
+
+function renderCases(){
+  const list = document.getElementById('caseList');
+  CASES.forEach((c,idx)=>{
+    const box=el('div',{'class':'case','tabindex':0});
+    box.style.minWidth='340px';
+    box.innerHTML = `<div style="font-weight:800">${c.title}</div><div class="muted" style="margin:8px 0">${c.summary}</div><button class="btn" onclick="openCase(${idx})">Read more</button>`;
+    list.appendChild(box);
+  });
+}
+
+function renderPricing(){
+  const root=document.getElementById('pricingGrid');
+  PRICING.forEach(p=>{
+    const card=el('div',{'class':'price-card'});
+    card.innerHTML=`<div style="font-weight:900;font-size:18px">${p.name}</div><div style="font-weight:800;margin-top:8px">${p.price}</div><ul style="margin-top:8px">${p.bullets.map(b=>`<li class="muted">${b}</li>`).join('')}</ul><div style="margin-top:12px"><button class="btn" onclick="requestQuote('${p.name}')">Request ${p.name}</button></div>`;
+    root.appendChild(card);
+  });
+}
+
+function renderProducts(){
+  const root=document.getElementById('productsGrid');
+  PRODUCTS.forEach(prod=>{
+    const card=el('div',{'class':'product','tabindex':0});
+    card.innerHTML=`<div class="img"><img src="${prod.img}" alt="${prod.title} image" style="height:100%;width:100%;object-fit:cover" /></div><div class="info"><div style="font-weight:800">${prod.title}</div><div class="muted" style="margin-top:8px">${prod.desc}</div></div>`;
+    root.appendChild(card);
+  });
+}
+
+/* ======================
+   Carousel / Testimonials
+   ====================== */
+let caseIndex = 0;
+function showCase(i){
+  const list = document.querySelectorAll('#caseList .case');
+  if(!list.length) return;
+  caseIndex = (i + list.length) % list.length;
+  const cardWidth = list[0].getBoundingClientRect().width + 14;
+  document.getElementById('caseList').scrollTo({left: cardWidth * caseIndex, behavior:'smooth'});
+}
+document.getElementById('casePrev').addEventListener('click',()=>showCase(caseIndex-1));
+document.getElementById('caseNext').addEventListener('click',()=>showCase(caseIndex+1));
+function openCase(i){
+  alert('Case study details are placeholders in this single-file demo. Real case pages can be added on request.');
+}
+
+/* Testimonials */
+let tIndex = 0;
+function updateTestimonials(){
+  const ts = document.querySelectorAll('.testimonial');
+  ts.forEach((t,i)=>t.classList.toggle('active',i===tIndex));
+}
+function nextTest(){ tIndex=(tIndex+1)%document.querySelectorAll('.testimonial').length; updateTestimonials();}
+function prevTest(){ tIndex=(tIndex-1+document.querySelectorAll('.testimonial').length)%document.querySelectorAll('.testimonial').length; updateTestimonials(); }
+
+/* ======================
+   Contact form (simulated backend)
+   ====================== */
+const CONTACT_KEY = 'vp_contact_submissions';
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = this.name.value.trim();
+  const email = this.email.value.trim();
+  const title = this.title.value.trim();
+  const message = this.message.value.trim();
+
+  // Basic validation
+  if(!name || !email || !message){
+    showContactNote('Please complete required fields.',true); return;
+  }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    showContactNote('Enter a valid email address.',true); return;
+  }
+
+  // Simulate server delay
+  showContactNote('Sending...',false);
+  setTimeout(()=>{
+    const store = JSON.parse(localStorage.getItem(CONTACT_KEY)||'[]');
+    store.push({name,email,title,message,ts:new Date().toISOString()});
+    localStorage.setItem(CONTACT_KEY, JSON.stringify(store));
+    showContactNote('Thanks — your request was saved. We will email you.',false);
+    this.reset();
+  },700);
+});
+
+function showContactNote(text,isError){
+  const el = document.getElementById('contactNote');
+  el.textContent = text; el.style.color = isError ? 'crimson' : 'green';
+}
+
+/* Save draft */
+function saveDraft(){
+  const draft = {
+    name:document.getElementById('cname').value || '',
+    email:document.getElementById('cemail').value || '',
+    title:document.getElementById('ctitle').value || '',
+    message:document.getElementById('cmessage').value || ''
+  };
+  localStorage.setItem('vp_contact_draft', JSON.stringify(draft));
+  showContactNote('Draft saved locally.',false);
+}
+(function loadDraft(){
+  const d = JSON.parse(localStorage.getItem('vp_contact_draft')||'null');
+  if(d){
+    document.getElementById('cname').value = d.name||'';
+    document.getElementById('cemail').value = d.email||'';
+    document.getElementById('ctitle').value = d.title||'';
+    document.getElementById('cmessage').value = d.message||'';
+  }
+})();
+
+/* ======================
+   Admin panel (view stored submissions)
+   ====================== */
+const adminModal = document.getElementById('adminModal');
+document.getElementById('adminOpen').addEventListener('click', openAdmin);
+function openAdmin(){
+  populateAdmin();
+  adminModal.classList.add('open'); adminModal.setAttribute('aria-hidden','false');
+}
+function closeAdmin(){ adminModal.classList.remove('open'); adminModal.setAttribute('aria-hidden','true'); }
+
+function populateAdmin(){
+  const box = document.getElementById('adminContent');
+  const data = JSON.parse(localStorage.getItem(CONTACT_KEY)||'[]');
+  if(!data.length){ box.innerHTML = '<div class="muted">No submissions stored yet.</div>'; return; }
+  let html = '<div style="display:flex;flex-direction:column;gap:12px">';
+  data.slice().reverse().forEach(s=>{
+    html += `<div style="border-radius:8px;padding:10px;background:#f8fafc"><div style="font-weight:800">${escapeHTML(s.name)} <span style="font-weight:600;color:#64748b">• ${new Date(s.ts).toLocaleString()}</span></div><div style="color:#0d6efd">${escapeHTML(s.email)}</div><div style="margin-top:6px">${escapeHTML(s.title||'—')}</div><div style="margin-top:8px" class="muted">${escapeHTML(s.message)}</div></div>`;
+  });
+  html += '</div>';
+  box.innerHTML = html;
+}
+
+function exportSubmissions(){
+  const data = JSON.parse(localStorage.getItem(CONTACT_KEY)||'[]');
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='vertexpro_submissions.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+}
+
+function clearSubmissions(){
+  if(!confirm('Clear all stored submissions?')) return;
+  localStorage.removeItem(CONTACT_KEY);
+  populateAdmin();
+}
+
+/* ======================
+   Dark mode persistence
+   ====================== */
+const darkBtn = document.getElementById('darkBtn');
+darkBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('vp_dark', document.body.classList.contains('dark'));
+  darkBtn.textContent = document.body.classList.contains('dark') ? 'Light' : 'Dark';
+});
+(function loadDark(){
+  if(localStorage.getItem('vp_dark') === 'true'){
+    document.body.classList.add('dark'); darkBtn.textContent='Light';
+  } else { darkBtn.textContent='Dark'; }
+})();
+
+/* ======================
+   Utilities
+   ====================== */
+function scrollToSection(id){ document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'}); }
+
+function requestQuote(plan){
+  document.getElementById('ctitle').value = plan + ' plan inquiry';
+  scrollToSection('contact');
+  showContactNote(`Prepare a short message about your ${plan} needs.`,false);
+}
+
+function requestSample(){ alert('Sample requested — in a real site this would trigger an email or file download.'); }
+function downloadSample(){
+  const data = 'VertexPro — One page strategy template\n\n1. Problem\n2. Goals\n3. KPIs\n4. Plan';
+  const blob = new Blob([data],{type:'text/plain'}); const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='vertexpro_strategy_template.txt'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+}
+function simulateSignup(){ alert('Demo started — this is a simulated experience in the single-file demo.'); }
+
+/* ===== helpers ===== */
+function escapeHTML(s){ if(!s) return ''; return s.replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+
+/* ======================
+   Init render
+   ====================== */
+renderServices();
+renderCases();
+renderPricing();
+renderProducts();
+updateTestimonials();
+
+/* Simple keyboard shortcuts (for convenience) */
+document.addEventListener('keydown', e=>{
+  if(e.key==='/' && (e.ctrlKey||e.metaKey)){ e.preventDefault(); document.getElementById('cname').focus(); }
+  if(e.key==='Escape'){ closeAdmin(); }
+});
+
+/* Small accessibility: focus visible */
+document.addEventListener('keydown', (e)=>{ if(e.key==='Tab') document.body.classList.add('using-keyboard'); }, {once:true});
+</script>
+</body>
+</html>
